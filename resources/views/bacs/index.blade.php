@@ -1,0 +1,53 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Bac') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h1>Information du bac</h1>
+                    @if ($bac)
+                        <p>Annee : {{ $bac->annee_bac }}</p>
+                        <p>type : {{ $bac->type_bac }}</p>
+                        <p>moyen : {{ $bac->moyen }}</p>
+                        <p>montion : {{ $bac->mention }}</p>
+                    @else
+                        <p>No bac data available for this user.</p>
+                    @endif
+
+                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500
+                     hover:text-gray-700 hover:border-gray-300 focus:outline-none
+                      focus:text-gray-700 focus:border-gray-300
+                       transition duration-150 ease-in-out" href="{{route('bacs.edit',$bac)}}">Modifier votre bac </a>
+                    {{-- <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6"></div>
+                    </div> --}}
+                    
+                    {{-- <a class="btn btn-success" href="{{route('etablisements.create')}}">Ajouter nouveau etablisement</a> <br> --}}
+                    {{-- <table>
+                        <thead>
+                            <tr>
+                                <th>Etablisement </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($etablisements  as $etab)
+                                <tr>
+                                    <td>{{$etab->etab_nom}} </td>
+                                    <td><a href="">Modifier</a></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

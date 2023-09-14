@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("/img/slice.png");
+    background-position: center;
+}
+
+/* login page ************************** */
+.logo-pedoc {
+    width: 10%;
+}
+
+/* home pagee here ************************************ */
+.card-header.bg-danger {
+    background-color: #0286b9 !important;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bolder;
+}
+
+/* welcome page **************************** */
+.maindiv {
+    height: 100vh;
+}
+.pedoc-logo img,
+.usms-logo img {
+    width: 5%;
+}
+.p-title h2 {
+    font-size: 1.5rem;
+}
+.p-title h4 {
+    font-size: 1rem;
+}
+.home-header {
+    height: 30vh;
+}
+.guide {
+    height: 56vh;
+}
+.guide-img img {
+    width: 58%;
+    box-shadow: #71676785 7px 7px 28px;
+    background-color: #ffffffcc;
+    border-radius: 23px;
+}
+/* .usms-logo {
+    display: flex;
+    justify-content: center;
+}
+
+
+.guide-text h1 {
+    font-weight: bolder !important;
+    font-size: 3rem !important;
+}  */
+
+/* the choix page style parameters ********************************8 */
+
+details[open] summary ~ * {
+    animation: open 0.3s ease-in-out;
+}
+
+@keyframes open {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary {
+    width: 100%;
+    padding: 0.5rem 0;
+    border-top: 1px solid black;
+    position: relative;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-weight: 300;
+    list-style: none;
+}
+
+details summary:after {
+    content: "+";
+    color: black;
+    position: absolute;
+    font-size: 1.75rem;
+    line-height: 0;
+    margin-top: 0.75rem;
+    right: 0;
+    font-weight: 200;
+    transform-origin: center;
+    transition: 200ms linear;
+}
+details[open] summary:after {
+    transform: rotate(45deg);
+    font-size: 2rem;
+}
+details summary {
+    outline: 0;
+}
+details p {
+    font-size: 0.95rem;
+    margin: 0 0 1rem;
+    padding-top: 1rem;
+}
+
+details {
+    border: 1px solid black;
+    border-radius: 5px;
+}
