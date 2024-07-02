@@ -66,27 +66,79 @@ class EtatcivilController extends Controller
      */
     public function store(StoreEtatcivilRequest $request)
     {
-        Etatcivil::create([
-            'cin'=> $request->input('cin'),
-            'code_masar' => $request->input('code_masar'),
-            'date_naissance' => $request->input('date_naissance'),
-            'nom_fr' => $request->input('nom_fr'),
-            'prenom_fr' => $request->input('prenom_fr'),
-            'nom_ar' => $request->input('nom_ar'),
-            'prenom_ar' => $request->input('prenom_ar'),
-            'lieu_nais_fr' => $request->input('lieu_nais_fr'),
-            'lieu_nais_ar' => $request->input('lieu_nais_ar'),
-            'pays_nais' => $request->input('pays_nais'),
-            'adress' => $request->input('adress'),
-            'ville' => $request->input('ville'),
-            'tel' => $request->input('tel'),
-            'fonction' => $request->input('fonction'),
-            'situation_f' => $request->input('situation_f'),
-            'sexe' => $request->input('sexe'),
-            'user_id' => $request->input('user_id'),
-        ]);
+        $user = Auth::user();
+        $etatcivil = $user->etatcivil;
+        if ($etatcivil) {
+            return view('etatcivils.index', compact('etatcivil'));
+        }
+        else{
+            $request->validate([
+                'cin' => 'required|unique:etatcivils,cin',
+                'code_masar' => 'required|unique:etatcivils,code_masar',
+                'date_naissance' => 'required|date',
+                'nom_fr' => 'required',
+                'prenom_fr' => 'required',
+                'nom_ar' => 'required',
+                'prenom_ar' => 'required',
+                'lieu_nais_fr' => 'required',
+                'lieu_nais_ar' => 'required',
+                'pays_nais' => 'required',
+                'adress' => 'required',
+                'ville' => 'required',
+                'tel' => 'required',
+                'fonction' => 'required',
+                'situation_f' => 'required',
+                'sexe' => 'required',
+            ],
+            [
+                'cin.required' => ' CIN obligatoire.',
+                'cin.unique' => ' CIN deja utilisé .',
+                'code_masar.required' => ' Code Masar obligatoire.',
+                'code_masar.unique' => ' Code Masar deja utilisé .',
+                'date_naissance.required' => '  Date obligatoire .',
+                'date_naissance.date' => ' Format de Date incorrect .',
+                'nom_fr.required' => 'Nom fr  obligatoire.',
+                'Prenom_fr.required' => 'Premon fr obligatoire.',
+                'nom_ar.required' => 'Nom ar  obligatoire.',
+                'prenom_ar.required' => 'Prenom ar  obligatoire.',
+                'lieu_nais_fr.required' => 'Lieu  obligatoire.',
+                'lieu_nais_ar.required' => 'Lieu  obligatoire.',
+                'pays_nais.required' => 'Pays  obligatoire.',
+                'ville.required' => 'ville  obligatoire.',
+                'tel.required' => 'tel  obligatoire.',
+                'fonction.required' => 'fonction  obligatoire.',
+                'situation_f.required' => 'Date  obligatoire.',
+                'sexe.required' => 'Genre  obligatoire.',
+    
+            ]);
+    
+            Etatcivil::create([
+                
+                'cin'=> $request->input('cin'),
+                'code_masar' => $request->input('code_masar'),
+                'date_naissance' => $request->input('date_naissance'),
+                'nom_fr' => $request->input('nom_fr'),
+                'prenom_fr' => $request->input('prenom_fr'),
+                'nom_ar' => $request->input('nom_ar'),
+                'prenom_ar' => $request->input('prenom_ar'),
+                'lieu_nais_fr' => $request->input('lieu_nais_fr'),
+                'lieu_nais_ar' => $request->input('lieu_nais_ar'),
+                'pays_nais' => $request->input('pays_nais'),
+                'adress' => $request->input('adress'),
+                'ville' => $request->input('ville'),
+                'tel' => $request->input('tel'),
+                'fonction' => $request->input('fonction'),
+                'situation_f' => $request->input('situation_f'),
+                'sexe' => $request->input('sexe'),
+                // 'user_id' => $request->input('user_id'),
+                'user_id' => auth()->id(),
+            ]);
+    
+            return  redirect()->route('bacs.create');
+           
+        }
 
-        return  redirect()->route('bacs.create');
+
 
     }
 
@@ -117,6 +169,45 @@ class EtatcivilController extends Controller
      */
     public function update(UpdateEtatcivilRequest $request, Etatcivil $etatcivil)
     {
+        $request->validate([
+            'cin' => 'required',
+            'code_masar' => 'required',
+            'date_naissance' => 'required|date',
+            'nom_fr' => 'required',
+            'prenom_fr' => 'required',
+            'nom_ar' => 'required',
+            'prenom_ar' => 'required',
+            'lieu_nais_fr' => 'required',
+            'lieu_nais_ar' => 'required',
+            'pays_nais' => 'required',
+            'adress' => 'required',
+            'ville' => 'required',
+            'tel' => 'required',
+            'fonction' => 'required',
+            'situation_f' => 'required',
+            'sexe' => 'required',
+        ],
+        [
+            'cin.required' => ' CIN obligatoire.',
+            // 'cin.unique' => ' CIN deja utilisé .',
+            'code_masar.required' => ' Code Masar obligatoire.',
+            'date_naissance.date' => ' Format de Date incorrect .',
+            'date_naissance.date' => ' Format de Date incorrect .',
+            'nom_fr.required' => 'Nom fr  obligatoire.',
+            'Prenom_fr.required' => 'Premon fr obligatoire.',
+            'nom_ar.required' => 'Nom ar  obligatoire.',
+            'prenom_ar.required' => 'Prenom ar  obligatoire.',
+            'lieu_nais_fr.required' => 'Lieu  obligatoire.',
+            'lieu_nais_ar.required' => 'Lieu  obligatoire.',
+            'pays_nais.required' => 'Pays  obligatoire.',
+            'ville.required' => 'ville  obligatoire.',
+            'tel.required' => 'tel  obligatoire.',
+            'fonction.required' => 'fonction  obligatoire.',
+            'situation_f.required' => 'Date  obligatoire.',
+            'sexe.required' => 'Genre  obligatoire.',
+
+        ]);
+
         $etatcivil->update([
             'cin'=> $request->input('cin'),
             'code_masar' => $request->input('code_masar'),
@@ -134,7 +225,7 @@ class EtatcivilController extends Controller
             'fonction' => $request->input('fonction'),
             'situation_f' => $request->input('situation_f'),
             'sexe' => $request->input('sexe'),
-            'user_id' => $request->input('user_id'),
+            'user_id' =>  auth()->id(),
         ]);
 
         return  redirect()->route('bacs.create');

@@ -66,6 +66,24 @@ function enableCheckboxes() {
     });
 }
 
+const sendform = document.querySelector("#choix-form");
+sendform.addEventListener("submit", function (event) {
+    if (checkedCount == 0) {
+        alert(
+            "veuillez choisir au moins un sujet \n المرجو إختيار محور واحد على الأقل"
+        );
+        event.preventDefault();
+    } else {
+        const confirmed = confirm(
+            "Veuillez vérifier attentivement les axes sélectionnés, il n'est pas possible de les modifier après avoir cliqué sur(Ok) \n المرجو التحقق جيدا من المحاور المختارة لا يمكن التعديل بعد الضغط على (Ok) \n للإلغاء (Cancel) "
+        );
+        if (confirmed) {
+            event.submit();
+        } else {
+            event.preventDefault();
+        }
+    }
+});
 // checkboxesfun2.forEach((checkbox) => {
 //     checkbox.removeAttribute("name");
 // });
@@ -156,8 +174,6 @@ function enableCheckboxes() {
 //     // Submit the form
 //     document.getElementById("choix-form").submit();
 // });
-
-console.log("working js ");
 
 // var acc = document.getElementsByClassName("accordion-choix");
 // var i;

@@ -18,11 +18,11 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="row min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div class=" logo-pedoc justify-center  vw-20">
+            <div class=" logo-pedoc">
                 <a href="/">
                     <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
                     <!-- <img src="../resources/views/components/USMSlogo.png" alt=""> -->
-                    <img class="img img-fluid" src="{{ URL('/img/pedoc.png')}}" alt="">
+                    <img class="" src="{{ URL('/img/pedoc.png')}}" alt="">
                 </a>
             </div>
 

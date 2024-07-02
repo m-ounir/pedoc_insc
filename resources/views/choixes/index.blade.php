@@ -7,9 +7,10 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1>Votre Choix :</h1>
+                    <h1 class="mb-4 fw-bolder">Votre Choix :</h1>
                     @if ($data)
                     {{-- <embed src="data:{{ $mimeType }};base64,{{ $encodedData }}" type="{{ $mimeType }}" width="100%" height="600px" /> --}}
                         {{-- @foreach ($attatchement as $item)
@@ -24,28 +25,59 @@
                         @endforeach --}}
                         
                         {{-- <p>$formation</p> --}}
-                        @foreach ($data as $item)
+                        <table class=" table table-bordered border border-3 border-dark table-responsive fs-5">
+                            <thead>
+                            <tr class=" border border-3 border-dark ">
+                                <td>Sujets / axes</td>
+                                <td>Formation doctorale</td>
+                                <td>Etablisement</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {{-- <div>{{$data}}</div> --}}
+                                @foreach ($data as $item)
+                                    <tr class=" border-dark">
+                                        <td> {{ $item->nom_axe }}</td>
+                                        <td> {{ $item->formation_nom }}</td>
+                                        <td> {{ $item->etab }}</td>
+                                    </tr>
+                                @endforeach
+            
+                            </tbody>
+                            
+                        </table>
+                        {{-- @foreach ($data as $item)
                             <div>
                                 <p>Formation Name: {{ $item->formation_nom }}</p>
                                 <p>Selected Axis: {{ $item->nom_axe }}</p>
                                 <p>Selected Axis: {{ $item->id }}</p>
 
+                                <div class="card mb-4" style="width: 18rem;">
+                                    <ul class="list-group list-group-flush">
+                                      <li class="list-group-item"><span class="fw-bold"></span> {{ $bac->annee_bac }}</li>
+                                      <li class="list-group-item"><span class="fw-bold">Type :</span> {{ $bac->type_bac }}</li>
+                                      <li class="list-group-item"><span class="fw-bold">Moyen :</span> {{ $bac->moyen }}</li>
+                                      <li class="list-group-item"><span class="fw-bold">Montion :</span> {{ $bac->mention }}</li>
+                                    </ul>
+                                  </div>
+
                             </div>
-                        @endforeach
+                        @endforeach --}}
                         {{-- <p>$axes_sujet</p> --}}
                         
                     @else
-                        <p>No attatchement data available for this user.</p>
+                        <p>No choix data available for this user.</p>
                     @endif
-
+                    <a class="btn btn-outline-dark" href="{{route('attatchements.create')}}">Précédent </a>
                     
-                    <form method="POST" action="{{ route('choixes.destroy') }}">
+                    <a href="{{URL('/pagetoprint')}}" class="btn btn-outline-success" type="submit">Imprimer votre fiche d'inscription</a> 
+                    {{-- <a class="btn btn-outline-info" href="{{route('bac3s.create')}}">Suivant </a> --}}
+                    {{-- <form method="POST" action="{{ route('choixes.destroy') }}">
                         @csrf
                         @method('DELETE')
                         <!-- Other form inputs and submit button -->
-                        <button type="submit">choix a nouveau</button>
-                        {{-- <a href="{{route('choixes.destroy')}}"></a> --}}
-                    </form>
+                        <button class="btn btn-outline-black" type="submit">choix a nouveau</button> --}}
+                    {{-- </form> --}}
                     {{-- <form method="DELETE" action="{{route('attatchements.destroy' , $deletedId)}}" >
                         @csrf
                         @method('DELETE')

@@ -12,9 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     
-    public function attachment()
+    public function attatchement()
     {
-        return $this->hasOne(attachment::class);
+        return $this->hasOne(attatchement::class);
     }
 
     public function Etatcivil()

@@ -7,28 +7,33 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="d-flex justify-content-center text-left bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1>Information du bac + 5</h1>
+                    <h1 class="fw-bold mb-3">Informations du bac + 5</h1>
                     @if ($bac5)
-                        <p>Annee : {{ $bac5->annee_bac5 }}</p>
-                        <p>type diplome : {{ $bac5->type_dip }}</p>
-                        <p>etablisement  : {{ $bac5->etab_bac5 }}</p>
-                        <p>diplome : {{ $bac5->diplome_bac5 }}</p>
-                        <p>specialite : {{ $bac5->specialite_bac5 }}</p>
-                        <p>moyen diplome : {{ $bac5->moyen_bac5 }}</p>
-                        <p>note s7 : {{ $bac5->s7 }}</p>
-                        <p>note s8 : {{ $bac5->s8 }}</p>
-                        <p>note s9 : {{ $bac5->s9 }}</p>
-                        <p>note s10 : {{ $bac5->s10 }}</p>
+                       
+                        <div class="card mb-4" style="width: 18rem;">
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item"><span class="fw-bold">Année :</span> {{ $bac5->annee_bac5 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Type de diplome : </span> {{ $bac5->type_dip }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Etablissement : </span> {{  $bac5->etab_bac5 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Diplome : </span> {{ $bac5->diplome_bac5 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Spécialité : </span>{{ $bac5->specialite_bac5 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Moyenne diplome : </span>{{  $bac5->moyen_bac5 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">note s7 : </span>{{ $bac5->s7 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">note s8 : </span>{{ $bac5->s8 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">note s9 : </span>{{ $bac5->s9 }}</li>
+                              <li class="list-group-item"><span class="fw-bold">note s10 : </span>{{  $bac5->s10 }}</li>
+                            
+                            </ul>
+                          </div>
                     @else
                         <p>No bac + 5 data available for this user.</p>
                     @endif
-
-                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500
-                     hover:text-gray-700 hover:border-gray-300 focus:outline-none
-                      focus:text-gray-700 focus:border-gray-300
-                       transition duration-150 ease-in-out" href="{{route('bac5s.edit',$bac5)}}">Modifier votre bac + 5  </a>
+                    <a class="btn btn-outline-dark" href="{{route('bac3s.create')}}">Précédent </a>
+                    <a class="btn btn-outline-success" href="{{route('bac5s.edit',$bac5)}}">Modifier votre bac + 5  </a>
+                    <a class="btn btn-outline-info" href="{{route('attatchements.create')}}">Suivant </a>
+      
                     {{-- <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-6"></div>

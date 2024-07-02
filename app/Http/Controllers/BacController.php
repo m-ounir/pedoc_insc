@@ -62,16 +62,40 @@ class BacController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StorebacRequest $request)
-    {
-        Bac::create([
-            'user_id' => $request->input('user_id') ,
-            'annee_bac' => $request->input('annee_bac'),
-            'type_bac' => $request->input('type_bac'),
-            'moyen'  => $request->input('moyen'),
-            'mention' => $request->input('mention'),
-        ]);
+    { 
+        $user = Auth::user();
+        $bac = $user->bac;
+        if ($bac) {
+            return view('bacs.index', compact('bac'));
+        }
+        else{
+            
+            $request->validate([
+                'annee_bac' => 'required|date', 
+                'type_bac' => 'required', 
+                'moyen' => 'required|numeric', 
+                'mention' => 'required', 
+            ],
+            [
+                'annee_bac.required' => ' Date  obligatoire.',
+                'annee_bac.date' => ' Format Date  incorrect.',
+                'moyen.required' => ' Moyenne obligatoire.',
+                'moyen.numeric' => ' Type note.',
+                'mention.required' => '  mention obligatoire .',
+            ]);
 
-        return redirect()->route('bac3s.create');
+            Bac::create([
+                'user_id' =>  auth()->id() ,
+                'annee_bac' => $request->input('annee_bac'),
+                'type_bac' => $request->input('type_bac'),
+                'moyen'  => $request->input('moyen'),
+                'mention' => $request->input('mention'),
+            ]);
+    
+            return redirect()->route('bac3s.create');
+        }
+
+        
     }
 
     /**
@@ -92,15 +116,31 @@ class BacController extends Controller
         if ($bac) {
             return view('bacs.edit', compact('bac'));
         }
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdatebacRequest $request, bac $bac)
-    {
+    {   
+        $request->validate([
+            'annee_bac' => 'required|date', 
+            'type_bac' => 'required', 
+            'moyen' => 'required|numeric', 
+            'mention' => 'required', 
+        ],
+        [
+            'annee_bac.required' => ' Date  obligatoire.',
+            'annee_bac.date' => ' Format Date  incorrect.',
+            'type_bac.required' => ' type  obligatoire .',
+            'moyen.required' => ' Moyenne obligatoire.',
+            'moyen.numeric' => ' Type note.',
+            'mention.required' => '  mention obligatoire .',
+        ]);
+
         $bac->update([
-            'user_id' => $request->input('user_id') ,
+            'user_id' =>  auth()->id() ,
             'annee_bac' => $request->input('annee_bac'),
             'type_bac' => $request->input('type_bac'),
             'moyen'  => $request->input('moyen'),

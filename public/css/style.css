@@ -1,50 +1,78 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    background-image: url("/img/slice.png");
-    background-position: center;
+  /* background-image: url("/img/slice.png"); */
+  background-position: center;
 }
-
+nav {
+  background: rgb(0, 139, 182);
+  background: linear-gradient(
+    270deg,
+    rgba(0, 139, 182, 1) 26%,
+    rgba(255, 170, 25, 1) 26%
+  );
+}
 /* login page ************************** */
 .logo-pedoc {
-    width: 10%;
+  width: 10%;
 }
 
 /* home pagee here ************************************ */
 .card-header.bg-danger {
-    background-color: #0286b9 !important;
-    color: white;
-    font-size: 1.4rem;
-    font-weight: bolder;
+  /* background-color: #0286b9 !important; */
+  background: rgb(255, 170, 25) !important;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 170, 25, 1) 13%,
+    rgba(0, 139, 182, 1) 13%
+  ) !important;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bolder;
+}
+a.inline-flex.items-center.px-1.pt-1.border-b-2.border-transparent.text-sm.font-medium.leading-5.text-gray-500.hover\:text-gray-700.hover\:border-gray-300.focus\:outline-none.focus\:text-gray-700.focus\:border-gray-300.transition.duration-150.ease-in-out {
+  color: black;
+  font-size: 17px;
 }
 
 /* welcome page **************************** */
+/* .pact-logo {
+    flex: 1 1 20rem;
+} */
+.pact-logo {
+  width: 22%;
+  position: fixed;
+  right: 0;
+}
 .maindiv {
-    height: 100vh;
+  height: 100vh;
 }
 .pedoc-logo img,
 .usms-logo img {
-    width: 5%;
+  width: 5%;
+}
+.p-title {
+  flex: 19 1 20rem;
 }
 .p-title h2 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 .p-title h4 {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 .home-header {
-    height: 30vh;
+  height: 30vh;
 }
 .guide {
-    height: 56vh;
+  height: 56vh;
 }
 .guide-img img {
-    width: 58%;
-    box-shadow: #71676785 7px 7px 28px;
-    background-color: #ffffffcc;
-    border-radius: 23px;
+  width: 58%;
+  box-shadow: #71676785 7px 7px 28px;
+  background-color: #ffffffcc;
+  border-radius: 23px;
 }
 /* .usms-logo {
     display: flex;
@@ -60,58 +88,112 @@ body {
 /* the choix page style parameters ********************************8 */
 
 details[open] summary ~ * {
-    animation: open 0.3s ease-in-out;
+  animation: open 0.3s ease-in-out;
 }
 
 @keyframes open {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 details summary::-webkit-details-marker {
-    display: none;
+  display: none;
 }
 
 details summary {
-    width: 100%;
-    padding: 0.5rem 0;
-    border-top: 1px solid black;
-    position: relative;
-    cursor: pointer;
-    font-size: 1.25rem;
-    font-weight: 300;
-    list-style: none;
+  width: 100%;
+  padding: 0.5rem 0;
+  border-top: 1px solid black;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 300;
+  list-style: none;
 }
 
 details summary:after {
-    content: "+";
-    color: black;
-    position: absolute;
-    font-size: 1.75rem;
-    line-height: 0;
-    margin-top: 0.75rem;
-    right: 0;
-    font-weight: 200;
-    transform-origin: center;
-    transition: 200ms linear;
+  content: "+";
+  color: black;
+  position: absolute;
+  font-size: 1.75rem;
+  line-height: 0;
+  margin-top: 0.75rem;
+  right: 0;
+  font-weight: 200;
+  transform-origin: center;
+  transition: 200ms linear;
 }
 details[open] summary:after {
-    transform: rotate(45deg);
-    font-size: 2rem;
+  transform: rotate(45deg);
+  font-size: 2rem;
 }
 details summary {
-    outline: 0;
+  outline: 0;
 }
 details p {
-    font-size: 0.95rem;
-    margin: 0 0 1rem;
-    padding-top: 1rem;
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
+  padding-top: 1rem;
 }
 
 details {
-    border: 1px solid black;
-    border-radius: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  details {
+    overflow-x: scroll !important;
+    width: 100vw !important;
+    margin: auto !important;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .usms-logo img {
+    width: 13%;
+  }
+  .logo-pedoc img {
+    width: 110%;
+  }
+  .maindiv {
+    font-size: 1rem;
+  }
+}
+@media only screen and (max-width: 750px) {
+ 
+  .logo-pedoc img {
+    width: 40%;
+  }
+ 
+}
+@media only screen and (max-width: 450px) {
+  .usms-logo img {
+    width: 20%;
+  }
+  .logo-pedoc img {
+    width: 110%;
+  }
+  .maindiv {
+    font-size: 0.5rem;
+  }
+  details {
+    overflow-x: scroll !important;
+    width: 100vw !important;
+    margin: auto !important;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .usms-logo img {
+    width: 20%;
+  }
+  .logo-pedoc img {
+    width: 110%;
+  }
+  .maindiv {
+    font-size: 0.5rem;
+  }
 }

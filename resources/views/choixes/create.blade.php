@@ -8,9 +8,17 @@
                     text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none
                      focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">Edit</a> --}}
 
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="alert alert-danger text-center" role="alert">
+                <h4 class="fw-bold fs-5 mb-2"> لا يمكن التعديل أو إضافة الإختيارات بعد تأكيد و استخراج الوصل</h4>
+                <h4 class="fw-bold fs-5 mb-2"> (لكم الحق في ثلاث اختيارات)</h4>
+              </div>
+            <div class="d-flex justify-content-center  bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                {{-- <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div> --}}
                 <div class="p-6 text-gray-900 justify-center row">
                     {{-- <form method="POST" action="{{ route('choixes.store')}}" class="row">
                        
@@ -94,22 +102,26 @@
                         <details class="mt-2 text-center row justify-content-center">
                             <input type="hidden" name="formation_id[]" value="{{ $frm->id }}">
                             <summary class="fs-4">{{ $frm->formation_nom }}</summary>
-                            <table class="table table-bordered .table-responsive-sm table-sm">
+                            <table class="table table-bordered table-striped table-responsive-sm table-sm">
                                 <thead>
                                     <tr>
                                         <th scope="col">Axes/sujet</th>
+                                        <th scope="col">Structure</th>
                                         <th scope="col">Encadrant</th>
-                                        <th scope="col">Etab</th>
+                                        <th scope="col">Co-encadrant</th>
+                                        <th scope="col">Etablisement</th>
                                         <th scope="col">votre choix</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                     @foreach($frm->axes_sujet as $axe)
                                     <tr>
                                         <input type="hidden" name="axe_id[]" value="{{ $axe->id }}">
                                         <th scope="row">{{ $axe->nom_axe }}</th>
+                                        <td>{{ $axe->structure }}</td>
                                         <td>{{ $axe->encadrant }}</td>
-                                        <td>Otto</td>
+                                        <td>{{ $axe->co_encadrant }}</td>
+                                        <td>{{ $axe->etab }}</td>
                                         <td>
                                             <input class="selection" type="checkbox" name="selected_choices[{{ $frm->id }}][{{ $axe->id }}]">
                                         </td>
@@ -125,17 +137,13 @@
                         <br> 
                         <br> 
                         <br> 
+                        <div class="mt-4 d-flex justify-content-center ">
+                                                    <a class="btn btn-outline-info fw-bold mr-4" href="{{route('attatchements.index')}}">Précédent </a>
 
-                        <a class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md 
-                            font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700
-                            active:bg-gray-900 focus:outline-none focus:ring-2
-                            focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" href="{{route('attatchements.index')}}">Précédent </a>
+                            <button id="send" class="btn btn-outline-success fw-bold"
+                                id="submit-form" type="submit">Confirmé et validé les choix </button>
 
-                            <button class="inline-flex items-center px-4 py-2 bg-green-800 border border-transparent rounded-md 
-                                font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700
-                                active:bg-gray-900 focus:outline-none focus:ring-2
-                                focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                                id="submit-form" type="submit">Suivant </button>
+                        </div>
                     </form>
                     
                 </div>

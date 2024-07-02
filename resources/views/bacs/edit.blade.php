@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Remplire les info bacalauriat') }}
+            {{ __('Modifier les info bacalauriat') }}
         </h2>
     </x-slot>
     {{-- <a href="{{ route('etatcivils.edit',$etatcivil) }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent 
@@ -21,22 +21,29 @@
 
                         <input type="text" name="user_id" id="user_id" hidden="hidden" value="{{Auth::user()->id}}">
                         
-                        <label class="block font-medium text-sm text-gray-700 mt-2" for="annee_bac">Date obtention :  </label>
+                        <label class="block font-medium text-sm text-gray-700 mt-2" for="annee_bac">Date d'obtention :  </label>
                         <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
                          type="date" name="annee_bac" value="{{$bac->annee_bac}}"  />
+                         @error('annee_bac')
+                            <span class="text-danger">{{ $message }}</span>
+                         @enderror
 
                         <label class="block font-medium text-sm text-gray-700 mt-2" for="type_bac">Type du bac  : </label>
                         <select name="type_bac" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mb-3">
-                            <option value="{{$bac->annee_bac}}" selected >{{$bac->annee_bac}} </option>
+                            <option value="{{$bac->type_bac}}" selected >{{$bac->type_bac}} </option>
                             <option value="Marocain" selected >Marocain </option>
                             <option value="Etranger">Etranger </option>
-                            
                         </select>
+                        @error('type_bac')
+                                <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         
-                        <label class="block font-medium text-sm text-gray-700 mt-2" for="moyen">Moyen : </label>
+                        <label class="block font-medium text-sm text-gray-700 mt-2" for="moyen">Moyenne : </label>
                         <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                          type="text" name="moyen" value="{{$bac->moyen}}"  />
-
+                         @error('moyen')
+                           <span class="text-danger">{{ $message }}</span>
+                            @enderror
 {{-- 
                         <label class="block font-medium text-sm text-gray-700 mt-2" for="mention">montion : </label>
                         <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="mention"  /> --}}
@@ -44,7 +51,7 @@
                         
                         {{-- <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="sexe"  /> --}} 
                         
-                        <label class="block font-medium text-sm text-gray-700 mt-2" for="mention">Montion : </label>
+                        <label class="block font-medium text-sm text-gray-700 mt-2" for="mention">Mention : </label>
                         <select name="mention" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mb-3">
                             <option value="{{$bac->mention}}" selected >{{$bac->mention}} </option>
                             <option value="Trés Bien" selected >Trés Bien </option>
@@ -52,15 +59,15 @@
                             <option value="Assez Bien">Assez Bien </option>
                             <option value="Passable">Passable </option>
                         </select>
+                        @error('mention')
+                                <span class="text-danger">{{ $message }}</span>
+                        @enderror
 
                         {{-- Auth::user()->name auth()->id() --}}
                        <br>
 
 
-                        <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md 
-                            font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700
-                            active:bg-gray-900 focus:outline-none focus:ring-2
-                            focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mt-2" type="submit">Modifier </button>
+                        <button class="btn btn-outline-dark" type="submit">Modifier </button>
                     </form>
 
                    {{-- <form action="{{ route('etat-civils.store') }}" method="POST">

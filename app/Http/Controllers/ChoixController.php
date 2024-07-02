@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Config;
 use App\Models\choix;
 use App\Models\Formation;
 use App\Models\AxesSujet;
-use App\Models\Users;
 use App\Http\Requests\StorechoixRequest;
 use App\Http\Requests\UpdatechoixRequest;
 
@@ -57,14 +56,17 @@ class ChoixController extends Controller
     //     // If no choix or related data is found, you can redirect to the create view or handle it as needed.
     //     return view('choixes.index');
         $user = Auth::user();
+        // $etatcivil = $user->etatcivil;
         $userId = Auth::id();
-
+        // $usmslogo = '/img/USMSlogo.png';
+        
         // Retrieve the selected formation and axes for the user
         $data = DB::table('choixes')
             ->where('user_id', $userId)
             ->join('formations', 'choixes.formation_id', '=', 'formations.id')
             ->join('axes_sujets', 'choixes.axe_id', '=', 'axes_sujets.id')
-            ->select('formations.formation_nom', 'axes_sujets.nom_axe','choixes.id')
+            ->select('formations.formation_nom', 'axes_sujets.nom_axe','axes_sujets.etab','choixes.id')
+            ->groupBy('formations.formation_nom', 'axes_sujets.nom_axe', 'axes_sujets.etab', 'choixes.id')
             ->get();
 
             // $choix = DB::table('choixes')
@@ -103,12 +105,19 @@ class ChoixController extends Controller
             $choix = DB::table('choixes')->where('user_id', $userId)->first();
             
             if($choix){
+                // $data = DB::table('choixes')
+                // ->where('user_id', $userId)
+                // ->join('formations', 'choixes.formation_id', '=', 'formations.id')
+                // ->join('axes_sujets', 'choixes.axe_id', '=', 'axes_sujets.id')
+                // ->select('formations.formation_nom', 'axes_sujets.nom_axe','choixes.id')
+                // ->get();
                 $data = DB::table('choixes')
-                ->where('user_id', $userId)
-                ->join('formations', 'choixes.formation_id', '=', 'formations.id')
-                ->join('axes_sujets', 'choixes.axe_id', '=', 'axes_sujets.id')
-                ->select('formations.formation_nom', 'axes_sujets.nom_axe','choixes.id')
-                ->get();
+                    ->where('user_id', $userId)
+                    ->join('formations', 'choixes.formation_id', '=', 'formations.id')
+                    ->join('axes_sujets', 'choixes.axe_id', '=', 'axes_sujets.id')
+                    ->select('formations.formation_nom', 'axes_sujets.nom_axe','axes_sujets.etab','choixes.id')
+                    ->groupBy('formations.formation_nom', 'axes_sujets.nom_axe', 'axes_sujets.etab', 'choixes.id')
+                    ->get();
 
                 return view('choixes.index', compact('data'));
             }else{
@@ -155,23 +164,47 @@ class ChoixController extends Controller
         //        'axe_id' => $axeId]);
         //     }
         // }
+            $user = Auth::user();
+            $userId = Auth::id();
+            $choix = DB::table('choixes')->where('user_id', $userId)->first();
+        if($choix){
+            
+            $data = DB::table('choixes')
+                ->where('user_id', $userId)
+                ->join('formations', 'choixes.formation_id', '=', 'formations.id')
+                ->join('axes_sujets', 'choixes.axe_id', '=', 'axes_sujets.id')
+                ->select('formations.formation_nom', 'axes_sujets.nom_axe','axes_sujets.etab','choixes.id')
+                ->groupBy('formations.formation_nom', 'axes_sujets.nom_axe', 'axes_sujets.etab', 'choixes.id')
+                ->get();
 
-        $user_id = $request->input('user_id');
-        $selected_choices = $request->input('selected_choices');
-    
-        foreach ($selected_choices as $formation_id => $axes) {
-            foreach ($axes as $axe_id => $selected) {
-                // Check if the checkbox is selected
-                if ($selected) {
-                    // Store the selected choice in your database or perform any other desired action
-                    // You can use $formation_id and $axe_id here
-                    choix::create(['user_id' => $user_id, 
-                        'formation_id' => $formation_id, 
-                        'axe_id' => $axe_id]);
+            return view('choixes.index', compact('data'));
+        }
+        else{
+            $user_id =  auth()->id();
+            $selected_choices = $request->input('selected_choices');
+            $numberOfChoices = 0;
+        
+            foreach ($selected_choices as $formation_id => $axes) {
+                foreach ($axes as $axe_id => $selected) {
+                    // Check if the checkbox is selected
+                    if ($selected && $numberOfChoices < 3 ) {
+                        // Store the selected choice in your database or perform any other desired action
+                        // You can use $formation_id and $axe_id here
+                        choix::create(['user_id' => $user_id, 
+                            'formation_id' => $formation_id, 
+                            'axe_id' => $axe_id
+                        ]);
+                        $numberOfChoices++;
+                    }
+                    else{
+                        return redirect()->back();
+                    }
                 }
+                // if ($numberOfChoices >= 3) {
+                //     return redirect()->back();
+                // }
             }
         }
-
             // $user_id = $request->input('user_id');
             // $formationIds = $request->input('formation_id');
             // $selectedAxes = $request->input('selected_axes');
@@ -194,7 +227,7 @@ class ChoixController extends Controller
 
     // Redirect or return a response
 
-        return  redirect()->route('dashboard');
+        return  redirect('pagetoprint');
     }
 
     /**

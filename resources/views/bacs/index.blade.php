@@ -5,24 +5,31 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12  ">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="d-flex justify-content-center text-left bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1>Information du bac</h1>
+                    <h1 class="mb-3 fw-bold">Informations du bac :</h1>
                     @if ($bac)
-                        <p>Annee : {{ $bac->annee_bac }}</p>
+                        {{-- <p>Annee : {{ $bac->annee_bac }}</p>
                         <p>type : {{ $bac->type_bac }}</p>
                         <p>moyen : {{ $bac->moyen }}</p>
-                        <p>montion : {{ $bac->mention }}</p>
-                    @else
-                        <p>No bac data available for this user.</p>
-                    @endif
+                        <p>montion : {{ $bac->mention }}</p> --}}
 
-                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500
-                     hover:text-gray-700 hover:border-gray-300 focus:outline-none
-                      focus:text-gray-700 focus:border-gray-300
-                       transition duration-150 ease-in-out" href="{{route('bacs.edit',$bac)}}">Modifier votre bac </a>
+                        <div class="card mb-4" style="width: 18rem;">
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item"><span class="fw-bold">Année :</span> {{ $bac->annee_bac }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Type :</span> {{ $bac->type_bac }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Moyenne :</span> {{ $bac->moyen }}</li>
+                              <li class="list-group-item"><span class="fw-bold">Mention :</span> {{ $bac->mention }}</li>
+                            </ul>
+                          </div>
+                    @else
+                        <p class="mb-4">No bac data available for this user.</p>
+                    @endif
+                    <a class="btn btn-outline-dark" href="{{route('etatcivils.create')}}">Précédent </a>   
+                    <a class="btn btn-outline-success" href="{{route('bacs.edit',$bac)}}">Modifier votre bac </a>
+                    <a class="btn btn-outline-info" href="{{route('bac3s.create')}}">Suivant </a>
                     {{-- <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-6"></div>

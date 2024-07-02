@@ -9,6 +9,8 @@ use App\Http\Controllers\Bac3Controller;
 use App\Http\Controllers\Bac5Controller;
 use App\Http\Controllers\AttatchementController;
 use App\Http\Controllers\ChoixController;
+use App\Http\Controllers\PDFController;
+// use App\Http\Controllers\PDFcontroller;
 
 
 
@@ -66,9 +68,25 @@ require __DIR__.'/auth.php';
 
 //this is the Attatchements all routes ************************************************************
         Route::resource('attatchements', AttatchementController::class);
+        Route::delete('attatchements/destroy', 'AttatchementController@destroy')->name('attatchements.destroy');
 
 //this is the Resources  all routes ************************************************************         
         Route::resource('choixes', ChoixController::class);
         Route::delete('choixes/destroy', 'ChoixController@destroy')->name('choixes.destroy');
 
-        // Route::resource('choixes', ChoixController::class);
+//this is the PDF  all routes ************************************************************  
+        // Route::resource('PDF', PDFController::class);
+        Route::get('PDF', [PDFController::class,'index']);
+        Route::get('pagetoprint', [PDFController::class,'pagetoprint']);
+        // Route::get('/pagetoprint', 'PDFController@pagetoprint')->name('pagetoprint');
+        // Route::get('/pagetoprint', 'App\Http\Controllers\PDFController@pagetoprint');
+        // Route::resource(name: '/', controller: App\Http\Controllers\PDFController::class);
+
+
+
+
+
+        // Route::get('/generate-pdf', 'PDFController@generatePDF');
+        // Route::get('PDF', [PDFController::class, 'index']);
+
+// Route::resource('choixes', ChoixController::class);
